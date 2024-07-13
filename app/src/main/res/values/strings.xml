@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">GameApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="key_welcome">Welcome</string>
+    <string name="key_subtext">Pick out what interest you</string>
+    <string name="key_continue">Continue</string>
 </resources>
