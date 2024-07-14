@@ -1,6 +1,5 @@
 package com.duje.gameapp.data.remote.responses
 
-import com.google.gson.Gson
 
 data class GenresResponse(
     val count: Int,
@@ -24,3 +23,4 @@ data class Game(
     val name: String,
     val added: Int
 )
+
