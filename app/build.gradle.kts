@@ -56,9 +56,9 @@ dependencies {
     implementation(libs.okhttp)
     //Gson
     implementation(libs.gson)
-    //Firebase-bom
-    implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
 
+    implementation (libs.androidx.room.runtime)
+    annotationProcessor (libs.androidx.room.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

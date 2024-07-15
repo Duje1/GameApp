@@ -1,4 +1,4 @@
-package com.duje.gameapp.presentation.adapter
+package com.duje.gameapp.data.model
 
 data class RecyclerViewItemModel(
     val id: Int,
