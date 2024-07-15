@@ -13,8 +13,6 @@ constraintlayout = "2.1.4"
 navigationDynamicFeaturesFragment = "2.7.7"
 okhttp = "4.12.0"
 retrofit = "2.11.0"
-firebaseCommonKtx = "21.0.0"
-firebaseDatabaseKtx = "21.0.0"
 roomRuntime = "2.6.1"
 
 [libraries]
@@ -23,6 +21,7 @@ androidx-navigation-dynamic-features-fragment = { module = "androidx.navigation:
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationDynamicFeaturesFragment" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationDynamicFeaturesFragment" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }

@@ -13,7 +13,7 @@ import com.duje.gameapp.data.viewModel.OnItemChangedListener
 class GenresRecyclerViewAdapter(private var itemList: List<RecyclerViewItemModel>) : RecyclerView.Adapter<GenresRecyclerViewAdapter.ViewHolder>() {
 
 
-
+    // Interface listener that allows external components to listen for item selection changes within the RecyclerView
     private var onItemChangedListener: OnItemChangedListener? = null
 
     fun setOnItemChangedListener(listener: OnItemChangedListener) {
@@ -37,17 +37,16 @@ class GenresRecyclerViewAdapter(private var itemList: List<RecyclerViewItemModel
         }
     }
 
+    fun getSelectedItems(): List<RecyclerViewItemModel> {
+        return itemList.filter { it.isPressed }
+    }
+
     override fun getItemCount(): Int {
         return itemList.size
     }
 
     fun getItem(position: Int): RecyclerViewItemModel {
         return itemList[position]
-    }
-
-    fun updateItems(newItems: List<RecyclerViewItemModel>) {
-        itemList = newItems
-        notifyDataSetChanged()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

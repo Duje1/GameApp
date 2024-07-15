@@ -7,7 +7,12 @@
 
     <fragment
         android:id="@+id/onboarding_fragment"
-        android:name="com.duje.gameapp.presentation.ui.fragments.onboarding_fragment"
+        android:name="com.duje.gameapp.presentation.ui.fragments.OnboardingFragment"
         android:label="fragment_onboarding_fragment"
         tools:layout="@layout/fragment_onboarding_fragment" />
+    <fragment
+        android:id="@+id/gamesFragment"
+        android:name="com.duje.gameapp.GamesFragment"
+        android:label="fragment_games"
+        tools:layout="@layout/fragment_games" />
 </navigation>
