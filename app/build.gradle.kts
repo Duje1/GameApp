@@ -51,18 +51,20 @@ dependencies {
     implementation (libs.androidx.navigation.ui.ktx)
     // Feature module Support
     implementation (libs.androidx.navigation.dynamic.features.fragment)
-    //Retrofit
+    // Retrofit
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
-    //OkHtpp
+    // OkHtpp
     implementation(libs.okhttp)
-    //Gson
+    // Gson
     implementation(libs.gson)
-
+    // Room
     implementation (libs.androidx.room.runtime)
     annotationProcessor (libs.androidx.room.compiler)
     implementation (libs.androidx.room.ktx)
     kapt (libs.androidx.room.compiler)
+    // Glide
+    implementation(libs.glide)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

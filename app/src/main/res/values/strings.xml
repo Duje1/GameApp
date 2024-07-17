@@ -3,6 +3,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="key_welcome">Welcome</string>
-    <string name="key_subtext">Pick out what interest you</string>
+    <string name="key_subtext">Pick out what interests you</string>
     <string name="key_continue">Continue</string>
+    <string name="keyAppName">Game App</string>
+    <string name="keyMinumumGenres">select 2 mininum</string>
+    <string name="keySlogan">Made for gamers \nby gamers</string>
 </resources>

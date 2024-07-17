@@ -8,18 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.duje.gameapp.R
 import com.duje.gameapp.data.remote.api.RetrofitInstance
 import com.duje.gameapp.data.remote.responses.GameCategory
 import com.duje.gameapp.presentation.adapter.GenresRecyclerViewAdapter
-import com.duje.gameapp.data.model.RecyclerViewItemModel
+import com.duje.gameapp.data.model.GenreRecyclerViewItemModel
 import com.duje.gameapp.data.viewModel.GenreViewModel
 import com.duje.gameapp.data.viewModel.OnItemChangedListener
 import com.duje.gameapp.domain.Genre
@@ -40,7 +42,7 @@ class OnboardingFragment : Fragment(), OnItemChangedListener {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_onboarding_fragment, container, false)
-
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {}
         spinner = view.findViewById(R.id.progressBar)
         continueButton = view.findViewById(R.id.btnContinue)
         rvGenres = view.findViewById(R.id.rvGenres)
@@ -53,7 +55,9 @@ class OnboardingFragment : Fragment(), OnItemChangedListener {
         continueButton.setOnClickListener {
             removeUnselectedGenresFromViewModel()
             saveSelectedGenres()
+            Navigation.findNavController(view).navigate(R.id.navigate_to_games)
         }
+
 
         return view
     }
@@ -61,8 +65,8 @@ class OnboardingFragment : Fragment(), OnItemChangedListener {
     // Populating RecyclerView with the data that is fetched from api
     private fun fetchGenresAndUpdateUI() {
         viewLifecycleOwner.lifecycleScope.launch {
-            // Saving data from remote database
-            val fetchedGenres = fetchGenres("17e1938ed62248b19c0399eb1a1f43da")
+            // Loading data from remote database
+            val fetchedGenres = fetchGenres("YOUR_API")
             try {
                 // Observe saved genres
                 getSavedGenres().observe(viewLifecycleOwner, Observer { savedGenres ->
@@ -70,12 +74,13 @@ class OnboardingFragment : Fragment(), OnItemChangedListener {
 
                         Log.d("FetchGenres", "Saved Genres: $savedGenres")
 
-                        if(savedGenres.isNotEmpty())
+                        if (savedGenres.isNotEmpty())
                             enableContinueButton(true)
 
-                        // Fetch new genres within the coroutine scope
-                        val recyclerViewItems = fetchedGenres?.map { mapGameCategoryToRecyclerViewItemModel(it) }
-                        genresAdapter = recyclerViewItems?.let { GenresRecyclerViewAdapter(it) } ?: return@Observer
+                        val recyclerViewItems =
+                            fetchedGenres?.map { mapGameCategoryToRecyclerViewItemModel(it) }
+                        genresAdapter = recyclerViewItems?.let { GenresRecyclerViewAdapter(it) }
+                            ?: return@Observer
                         rvGenres.adapter = genresAdapter
 
                         // Update UI based on saved genres
@@ -120,8 +125,8 @@ class OnboardingFragment : Fragment(), OnItemChangedListener {
     }
 
     // Loading data from remote db to our RecyclerView items so it can be displayed
-    private fun mapGameCategoryToRecyclerViewItemModel(gameCategory: GameCategory): RecyclerViewItemModel {
-        return RecyclerViewItemModel(
+    private fun mapGameCategoryToRecyclerViewItemModel(gameCategory: GameCategory): GenreRecyclerViewItemModel {
+        return GenreRecyclerViewItemModel(
             id = gameCategory.id,
             name = gameCategory.name,
             isPressed = false
@@ -132,19 +137,22 @@ class OnboardingFragment : Fragment(), OnItemChangedListener {
     override fun onItemChanged(position: Int) {
 
         var activeItems = false
-
+        var numberOfActiveItems = 0
         // Checking if there are pressed items in recycler view
         for (i in 0 until genresAdapter.itemCount) {
             if (genresAdapter.getItem(i).isPressed) {
-                activeItems = true
-                break
+                numberOfActiveItems++
+                if (numberOfActiveItems >= 2) {
+                    activeItems = true
+                    break
+                }
             }
         }
 
         enableContinueButton(activeItems)
     }
 
-    private fun enableContinueButton(activeItems: Boolean){
+    private fun enableContinueButton(activeItems: Boolean) {
         if (activeItems) {
             continueButton.isEnabled = true
             continueButton.setBackgroundColor(Color.rgb(50, 145, 168))

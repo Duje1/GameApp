@@ -3,16 +3,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/onboarding_fragment">
+    app:startDestination="@id/selectionFragment">
 
     <fragment
         android:id="@+id/onboarding_fragment"
         android:name="com.duje.gameapp.presentation.ui.fragments.OnboardingFragment"
         android:label="fragment_onboarding_fragment"
-        tools:layout="@layout/fragment_onboarding_fragment" />
+        tools:layout="@layout/fragment_onboarding_fragment" >
+        <action
+            android:id="@+id/navigate_to_games"
+            app:destination="@id/gamesFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/gamesFragment"
-        android:name="com.duje.gameapp.GamesFragment"
+        android:name="com.duje.gameapp.presentation.ui.fragments.GamesFragment"
         android:label="fragment_games"
-        tools:layout="@layout/fragment_games" />
+        tools:layout="@layout/fragment_games" >
+        <action
+            android:id="@+id/navigate_to_onboarding"
+            app:destination="@id/onboarding_fragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/navigate_to_specific_game"
+            app:destination="@id/gameInfoFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectionFragment"
+        android:name="com.duje.gameapp.presentation.ui.fragments.SelectionFragment"
+        android:label="fragment_selection"
+        tools:layout="@layout/fragment_selection" />
+    <fragment
+        android:id="@+id/gameInfoFragment"
+        android:name="com.duje.gameapp.presentation.ui.fragments.GameInfoFragment"
+        android:label="fragment_game_info"
+        tools:layout="@layout/fragment_game_info">
+
+        <argument
+            android:name="gameId"
+            app:argType="integer" />
+
+    </fragment>
+
 </navigation>
