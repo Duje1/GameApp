@@ -7,8 +7,8 @@ Onboarding screen that lets the user select genres he is interested in
 ● User is able to change his genre selection in the settings that in return, refreshes the screen with the list of
 games
 **Screenshots**
-![Images](images/images.png)
-
+![Images](images/images_big.png)
+ 
 To make understanding the code better, I adhered to the MVVM (Model-View-ViewModel) architecture while building this project. 
 For this project, I chose to use Room database instead of Firebase. While Firebase is well-suited for projects requiring an online database, Room was a much more appropriate choice for this use case due to its local storage capabilities. 
 
