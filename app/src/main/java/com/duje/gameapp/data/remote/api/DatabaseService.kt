@@ -14,7 +14,8 @@ interface DatabaseService {
     @GET("games")
     suspend fun getGame(
         @Query("genres") genres: String,
-        @Query("key") apiKey: String
+        @Query("key") apiKey: String,
+        @Query("page") page: String
     ): GamesResponseModel
 
     @GET("games/{id}")

@@ -13,6 +13,7 @@ object RetrofitInstance {
             .build()
     }
 
+
     val api: DatabaseService by lazy {
         retrofit.create(DatabaseService::class.java)
     }

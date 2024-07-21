@@ -25,6 +25,9 @@ import com.duje.gameapp.data.model.GenreRecyclerViewItemModel
 import com.duje.gameapp.data.viewModel.GenreViewModel
 import com.duje.gameapp.data.viewModel.OnItemChangedListener
 import com.duje.gameapp.domain.Genre
+import com.duje.gameapp.utils.YOUR_API
+import com.duje.gameapp.utils.loadedGames
+import com.duje.gameapp.utils.pageNumber
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -42,7 +45,7 @@ class OnboardingFragment : Fragment(), OnItemChangedListener {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_onboarding_fragment, container, false)
-        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {}
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {}
         spinner = view.findViewById(R.id.progressBar)
         continueButton = view.findViewById(R.id.btnContinue)
         rvGenres = view.findViewById(R.id.rvGenres)
@@ -55,6 +58,8 @@ class OnboardingFragment : Fragment(), OnItemChangedListener {
         continueButton.setOnClickListener {
             removeUnselectedGenresFromViewModel()
             saveSelectedGenres()
+            loadedGames.clear()
+            pageNumber = 1
             Navigation.findNavController(view).navigate(R.id.navigate_to_games)
         }
 
@@ -66,7 +71,7 @@ class OnboardingFragment : Fragment(), OnItemChangedListener {
     private fun fetchGenresAndUpdateUI() {
         viewLifecycleOwner.lifecycleScope.launch {
             // Loading data from remote database
-            val fetchedGenres = fetchGenres("YOUR_API")
+            val fetchedGenres = fetchGenres(YOUR_API)
             try {
                 // Observe saved genres
                 getSavedGenres().observe(viewLifecycleOwner, Observer { savedGenres ->

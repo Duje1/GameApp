@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.duje.gameapp.R
 import com.duje.gameapp.data.remote.api.RetrofitInstance
 import com.duje.gameapp.data.remote.responses.GameInfoResponseModel
+import com.duje.gameapp.utils.YOUR_API
 import com.duje.gameapp.utils.gameId
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,8 +32,11 @@ class GameInfoFragment : Fragment() {
     private lateinit var ivAdditionImage: ImageView
     private lateinit var tvGameDescription: TextView
     private lateinit var ivRedditLogo: ImageView
+    private lateinit var ivWebSiteIcon: ImageView
 
-    private lateinit var redditLink: String
+
+    private var redditLink: String = ""
+    private var websiteLink: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +51,7 @@ class GameInfoFragment : Fragment() {
         tvGameDescription = view.findViewById(R.id.tvGameDescription)
         ivAdditionImage = view.findViewById(R.id.ivGameImage)
         ivRedditLogo = view.findViewById(R.id.ivRedditLogo)
-
+        ivWebSiteIcon = view.findViewById(R.id.ivWebIcon)
         return view
     }
 
@@ -60,9 +64,20 @@ class GameInfoFragment : Fragment() {
 
         ivRedditLogo.setOnClickListener()
         {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(redditLink)
-            startActivity(intent)
+            if(redditLink.isNotEmpty()){
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse(redditLink)
+                startActivity(intent)
+            }
+        }
+
+        ivWebSiteIcon.setOnClickListener()
+        {
+            if(websiteLink.isNotEmpty()){
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse(websiteLink)
+                startActivity(intent)
+            }
         }
 
     }
@@ -80,7 +95,9 @@ class GameInfoFragment : Fragment() {
                         .load(gameInfo.background_image)
                         .into(ivGameBackground)
 
+
                     redditLink = gameInfo.reddit_url
+                    websiteLink = gameInfo.website
 
                     tvGameDescription.text =
                         Html.fromHtml(gameInfo.description, Html.FROM_HTML_MODE_COMPACT)
@@ -104,7 +121,7 @@ class GameInfoFragment : Fragment() {
     suspend fun fetchGameDetails(gameId: String): GameInfoResponseModel {
         return withContext(Dispatchers.IO) {
             try {
-                val apiKey = "YOUR_API"
+                val apiKey = YOUR_API
                 RetrofitInstance.api.getGameDetails(gameId, apiKey)
             } catch (e: Exception) {
                 throw e

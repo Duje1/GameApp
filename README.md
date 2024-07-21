@@ -19,6 +19,4 @@ To make understanding the code better, I adhered to the MVVM (Model-View-ViewMod
 For this project, I chose to use Room database instead of Firebase. While Firebase is well-suited for projects requiring an online database, Room was a much more appropriate choice for this use case due to its local storage capabilities. 
 
 Running the code
-in "presentation/ui/fragments/GameInfoFragment" change YOUR_API with the real api from [ReadMe](RAWG.io)
-in "presentation/ui/fragments/GamesFragment" change YOUR_API with the real api from [ReadMe](RAWG.io)
-in "presentation/ui/fragments/OnboardingFragment" change YOUR_API with the real api from [ReadMe](RAWG.io)
+in "utils/GlobalVariables" change YOUR_API with the real api from [ReadMe](RAWG.io)

@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tvGameTitle"
@@ -95,12 +95,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivRedditLogo" />
 
+
         <ImageView
             android:id="@+id/ivRedditLogo"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginEnd="55dp"
             android:layout_marginTop="20dp"
             android:src="@drawable/reddit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivGameBackground" />
+
+        <ImageView
+            android:id="@+id/ivWebIcon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/webicon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivGameBackground" />

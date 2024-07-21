@@ -33,7 +33,6 @@ class GenresRecyclerViewAdapter(private var itemList: List<GenreRecyclerViewItem
 
         holder.itemView.findViewById<Button>(R.id.btnGenre).setOnClickListener {
             item.isPressed = !item.isPressed
-
             onItemChangedListener?.onItemChanged(position)
             notifyItemChanged(position)
         }

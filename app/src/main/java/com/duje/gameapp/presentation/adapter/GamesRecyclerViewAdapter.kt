@@ -12,7 +12,7 @@ import com.duje.gameapp.data.model.GameRecyclerViewItemModel
 import com.duje.gameapp.data.viewModel.OnItemChangedListener
 
 class GamesRecyclerViewAdapter(
-    private val gameList: List<GameRecyclerViewItemModel>
+    private var gameList: MutableList<GameRecyclerViewItemModel>
 ) : RecyclerView.Adapter<GamesRecyclerViewAdapter.GameViewHolder>() {
 
     private var onItemChangedListener: OnItemChangedListener? = null
@@ -31,6 +31,7 @@ class GamesRecyclerViewAdapter(
         holder.bind(game)
 
         holder.itemView.setOnClickListener() {
+
             onItemChangedListener?.onItemChanged(position)
             notifyItemChanged(position)
         }
@@ -42,6 +43,12 @@ class GamesRecyclerViewAdapter(
     }
 
     override fun getItemCount(): Int = gameList.size
+
+    fun addGames(newGames: List<GameRecyclerViewItemModel>) {
+        val startPosition = gameList.size
+        gameList.addAll(newGames)
+        notifyItemRangeInserted(startPosition, newGames.size)
+    }
 
     class GameViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val gameBackground: ImageView = itemView.findViewById(R.id.ivGameBackground)
